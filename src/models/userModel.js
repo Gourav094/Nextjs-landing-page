@@ -8,7 +8,7 @@ const userSchema = new mongoose.Schema({
     },
     email:{
         type: String,
-        required:[true,"please provide a username"],
+        required:[true,"please provide a email"],
         unique:true
     },
     password:{
@@ -29,6 +29,6 @@ const userSchema = new mongoose.Schema({
     verifyTokenExpiry:Date
 })
 
-const User = mongoose.models.users || mongoose.model("User",userSchema)
+const User = mongoose.models.User || mongoose.model("User",userSchema)
 
 export default User
