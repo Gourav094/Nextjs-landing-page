@@ -11,6 +11,12 @@ export async function POST(req:NextRequest){
         const {email, password} = reqBody
 
         const user = await User.findOne({email})
+        if(!user.isVerified){
+            return NextResponse.json({
+                error:"Please verify you email first",
+                status:400
+            })
+        }
         if(!user){
             return NextResponse.json({
                 error:"User doesn't exist",
