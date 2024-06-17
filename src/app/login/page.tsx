@@ -26,6 +26,9 @@ export default function LoginPage() {
                 router.push('/')
             }else{
                 toast.error(response.data.error)
+                if(response.data.status === 401){
+                    toast.error("Please check your email")
+                }
             }
         }
         catch(error:any){

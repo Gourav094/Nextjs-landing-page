@@ -21,11 +21,14 @@ export const sendEmail = async ({email,emailType,userId}:any) => {
         }
     
         var transport = nodemailer.createTransport({
-            host: "sandbox.smtp.mailtrap.io",
-            port: 2525,
+            // host: "sandbox.smtp.mailtrap.io",
+            // port: 2525,
+            service: 'gmail',
+            host: "smtp.gmail.com",
+            port: 465,
             auth: {
-              user: process.env.MAIL_USER_ID,
-              pass: process.env.MAIL_USER_PASS
+              user: process.env.MAIL_ID,
+              pass: process.env.GOOGLE_APP_PASS
             }
           });
         
@@ -37,7 +40,13 @@ export const sendEmail = async ({email,emailType,userId}:any) => {
                 or copy and paste the link below in your browser. <br> ${process.env.DOMAIN}/verifyemail?token=${hashedToken}
                 </p>`
         }
-        const mail = await transport.sendMail(mailOptions)
+        const mail = await transport.sendMail(mailOptions, (error, info) => {
+            if (error) {
+              console.error("Error sending email: ", error);
+            } else {
+              console.log("Email sent: ", info.response);
+            }
+          })
         return mail;
     }catch(err){
         console.log(err)
