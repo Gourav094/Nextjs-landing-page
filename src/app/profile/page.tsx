@@ -25,7 +25,7 @@ export default function Profile (){
         try{
             await axios.get('/api/user/logout')
             toast.success('Logout successful')
-            router.push("/")
+            router.push("/login")
         }
         catch(error:any){
             toast.error(error.message)

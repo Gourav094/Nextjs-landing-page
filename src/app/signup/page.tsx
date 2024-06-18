@@ -5,10 +5,12 @@ import Link from "next/link"
 import { useRouter } from "next/navigation"
 import { useState } from "react"
 import toast from "react-hot-toast"
+import { IoEyeOffOutline, IoEyeOutline } from "react-icons/io5"
 
 export default function SignUp() {
     const router = useRouter()
     const [loading,setLoading] = useState(false)
+    const [showPassword, setShowPassword] = useState(false);
     const [userData,setUserData] = useState({
         name:"",
         username:"",
@@ -52,10 +54,13 @@ export default function SignUp() {
                 <input placeholder="username" type="Email" id="username" className=" outline-none rounded-lg bg-gray-300 text-gray-800 px-3 py-2 w-full" 
                     value={userData.email} onChange={(e) => setUserData({...userData,email:e.target.value})}/>
             </div>
-            <div className="flex flex-col  gap-2 items-start w-full px-4 md:w-1/4">
+            <div className="relative flex flex-col  gap-2 items-start w-full px-4 md:w-1/4">
                 <label htmlFor = "username">Password</label>
-                <input placeholder="username" type="text" id="username" className=" outline-none rounded-lg bg-gray-300 text-gray-800 px-3 py-2 w-full" 
+                <input placeholder="username" type={showPassword ? "text" : "password"} className=" outline-none rounded-lg bg-gray-300 text-gray-800 px-3 py-2 w-full" 
                     value={userData.password} onChange={(e) => setUserData({...userData,password:e.target.value})}/>
+
+                <div className="absolute inset-y-0 right-0 pr-8 pt-8 flex items-center text-lg leading-5" onClick={() => setShowPassword(!showPassword)}>{showPassword ? <IoEyeOffOutline /> : <IoEyeOutline />}
+                </div>
             </div>
             <Link href="/login" className="px-4">Already have an account? Login here</Link>
             <div>
