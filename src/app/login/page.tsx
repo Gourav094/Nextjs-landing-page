@@ -40,7 +40,7 @@ export default function LoginPage() {
     }
 
     return (
-        <form onSubmit={handleLogin} className = "flex flex-col gap-4 items-center justify-center min-h-screen min-w-sceen bg-violet-100 text-gray-800">
+        <form onSubmit={handleLogin} className = "flex flex-col gap-4 px-4 items-center justify-center min-h-screen min-w-sceen bg-violet-100 text-gray-800">
             <h1 className = "text-2xl pb-10 font-semibold">Welcome back!</h1>
             <div className="flex flex-col  gap-2 items-start w-full md:w-1/4">
                 <label htmlFor = "username">Email</label>

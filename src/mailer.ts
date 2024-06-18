@@ -1,12 +1,19 @@
 import nodemailer from 'nodemailer';
 import User from "@/models/userModel";
-import bcryptjs from 'bcryptjs';
+import crypto from 'crypto';
 
+function generateToken(userId:any,length:number) {
+  const hash = crypto.createHash('sha256').update(userId.toString()).digest('base64');
+
+  const alphanumericHash = hash.replace(/[^a-zA-Z0-9]/g, '');
+
+  return alphanumericHash.slice(0, length);
+}
 
 export const sendEmail = async ({email,emailType,userId}:any) => {
 
     try{
-        const hashedToken = await bcryptjs.hash(userId.toString(),10)
+        const hashedToken = generateToken(userId,10)
 
         if(emailType === "VERIFY"){
             await User.findByIdAndUpdate({_id:userId},{

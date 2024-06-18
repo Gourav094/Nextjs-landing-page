@@ -6,6 +6,7 @@ import toast from "react-hot-toast";
 
 export default function VerifyEmail() {
     const [token,setToken] = useState("")
+    const [message,setMessage] = useState("")
 
     useEffect(() => {
         const url = window.location.search.split("=")[1];
@@ -14,8 +15,10 @@ export default function VerifyEmail() {
 
     const verifyEmail = async() => {
         try{    
-            await axios.post("/api/user/verifyemail",{token})
-
+            const response = await axios.post("/api/user/verifyemail",{token})
+            if(response.data){
+                setMessage(response.data.message)
+            }
         }catch(error:any){
             toast.error(error.message)
         }
@@ -29,7 +32,7 @@ export default function VerifyEmail() {
 
     return (
         <div className="flex flex-col items-center justify-center gap-10 py-[10%]">
-            {token ? "Token verified successfully.": "Some error occurred. Please try again"}
+            <p>{message || "verifying..."}</p>
             <Link href="/" className="text-gray-100 font-semibold hover:text-gray-500 text-lg ">
                 Go back
             </Link>

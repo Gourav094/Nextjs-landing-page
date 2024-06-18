@@ -24,7 +24,7 @@ export async function POST(req:NextRequest){
         await user.save()
         const response = NextResponse.json({
             message:"Email verified successfuly",
-            status:400
+            status:200
         })
         return response
     }catch(error:any){
